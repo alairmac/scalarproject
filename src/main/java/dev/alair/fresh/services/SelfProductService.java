@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service("selfProductService")
 //@Primary
-public class SelfProductService implements  ProductService{
+public class SelfProductService implements ProductService {
 
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
@@ -39,13 +39,13 @@ public class SelfProductService implements  ProductService{
     @Override
     public Product updateProduct(Long id, String title, String description, String image, String category, double price) {
         Product product = productRepository.findByIdIs(id);
-        if(product != null) {
-
-        product.setTitle(title);
-        product.setDescription(description);
-        product.setImageUrl(image);
-        product.setPrice(price);
-
+        if (product != null) {
+            product.setTitle(title);
+            product.setDescription(description);
+            product.setImageUrl(image);
+            product.setPrice(price);
+            Category categoryFromDB = createCategory(category);
+            product.setCategory(categoryFromDB);
         }
         return productRepository.save(product);
 
@@ -53,6 +53,10 @@ public class SelfProductService implements  ProductService{
 
     @Override
     public Product deleteProduct(Long id) {
+        Product product = productRepository.findByIdIs(id);
+        if (product != null) {
+            productRepository.delete(product);
+        }
         return null;
     }
 
@@ -67,16 +71,19 @@ public class SelfProductService implements  ProductService{
         product.setTitle(title);
         product.setDescription(description);
         product.setImageUrl(image);
+        Category categoryFromDB = createCategory(category);
+        product.setCategory(categoryFromDB);
+        return productRepository.save(product);
+    }
 
+    @Override
+    public Category createCategory(String category) {
         Category categoryFromDB = categoryRepository.findByTitle(category);
         if (categoryFromDB == null) {
             Category newCategory = new Category();
             newCategory.setTitle(category);
-            categoryFromDB = newCategory;
-//            categoryFromDB = categoryRepository.save(newCategory);
+            categoryFromDB = categoryRepository.save(newCategory);
         }
-
-        product.setCategory(categoryFromDB);
-        return productRepository.save(product);
+        return categoryFromDB;
     }
 }
