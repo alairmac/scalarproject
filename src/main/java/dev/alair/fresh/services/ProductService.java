@@ -14,4 +14,5 @@ public interface ProductService {
     public Product deleteProduct(Long id);
     public List<Product> getCategoryProduct(String category);
     public Product createProduct(String title, String description, String image,String category,double price);
+    public Category createCategory(String category);
 }
