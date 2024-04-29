@@ -160,4 +160,9 @@ public class FakeStoreProductService implements ProductService {
         );
         return responseDto.toProduct();
     }
+
+    @Override
+    public Category createCategory(String category) {
+        return null;
+    }
 }
