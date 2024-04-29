@@ -52,12 +52,13 @@ public class SelfProductService implements ProductService {
     }
 
     @Override
-    public Product deleteProduct(Long id) {
+    public Boolean deleteProduct(Long id) {
         Product product = productRepository.findByIdIs(id);
         if (product != null) {
             productRepository.delete(product);
+            return true;
         }
-        return null;
+        return false;
     }
 
     @Override
