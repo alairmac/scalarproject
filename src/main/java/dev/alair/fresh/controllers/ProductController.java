@@ -57,13 +57,16 @@ public class ProductController {
     }
 
     @GetMapping("/products/category/{category}")
-    public List<Product> getProductById(@PathVariable("category") String category){
+    public List<Product> getProductsByCategoryTitle(@PathVariable("category") String category){
         return productService.getCategoryProduct(category);
     }
     @DeleteMapping("/product/{id}")
-    public Product deleteProduct(@PathVariable("id") Long id){
+    public Boolean deleteProduct(@PathVariable("id") Long id){
         return productService.deleteProduct(id);
     }
+//    public Product deleteProduct(@PathVariable("id") Long id){
+//        return productService.deleteProduct(id);
+//    }
 
 
 }
