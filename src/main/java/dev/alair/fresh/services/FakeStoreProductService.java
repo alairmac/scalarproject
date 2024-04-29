@@ -117,7 +117,8 @@ public class FakeStoreProductService implements ProductService {
 
 
     @Override
-    public Product deleteProduct(Long id) {
+//    public Product deleteProduct(Long id) {
+    public Boolean deleteProduct(Long id) {
         String url = "https://fakestoreapi.com/products/"+id;
         ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.exchange(
                 url,
@@ -125,7 +126,7 @@ public class FakeStoreProductService implements ProductService {
                 null,
                 FakeStoreProductDto.class
         );
-        return responseEntity.getBody().toProduct();
+        return responseEntity.getBody().toProduct() != null;
     }
 
     @Override
